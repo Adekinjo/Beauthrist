@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"  # Custom build command if different from default
+  publish = "dist"           # The directory containing the production build files
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 200

@@ -1,10 +1,12 @@
 {
   "name": "beauthrist",
-  "homepage": "https://github.com/Adekinjo/Beauthrist.git",
+  "homepage": "https://github.io/Adekinjo/Beauthrist.git",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeloy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "vite build",
     "postinstall": "npm run build",
