@@ -15,11 +15,12 @@ import { useNavigate } from "react-router-dom";
     const navigate = useNavigate();
 
     const addToCart = async (itemId, size) => {
+        let message = '';
 
-        if (!size) {
-            toast.error('Select Product size');
-            return;
-        }
+        // if (!size) {
+        //     toast.error('Select Product size');
+        //     return;
+        // }
 
         let cartData = structuredClone(cartItem);
         if (cartData[itemId]) {
@@ -35,7 +36,7 @@ import { useNavigate } from "react-router-dom";
             cartData[itemId][size] = 1
         }
         setCartItem(cartData);
-        toast.success('Product added to cart list successfully!');
+         toast.success("Product add to cart list successfully")
     }
     const getCartCount = () => {
         let totalCount = 0;

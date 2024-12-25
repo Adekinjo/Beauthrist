@@ -4,6 +4,8 @@ import emailjs from '@emailjs/browser';
 import Title from '../components/Title';
 import CartTotal from '../components/CartTotal';
 import { assets } from '../assets/assets';
+import {toast} from "react-toastify";
+
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState('cod');
@@ -85,7 +87,7 @@ const PlaceOrder = () => {
       !formData.phoneNumber.trim()
     ) {
       // Notify the user if any field is empty
-      window.alert("All delivery fields are required to be filled.");
+      toast.error("All delivery fields are required to be filled.");
     } else {
       // Declare productDetails inside the function, to get the updated cart data
       const productDetails = {};
@@ -133,7 +135,7 @@ const PlaceOrder = () => {
         .then(
           (response) => {
             console.log('Order email sent successfully!', response.status, response.text);
-            alert('Order placed successfully!');
+            toast.success('Order placed successfully!');
             navigate('/'); // Navigate to the home page after successful order
           },
           (err) => {
