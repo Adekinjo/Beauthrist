@@ -11,9 +11,9 @@ const Footer = () => {
                 <img src={assets.logo} alt="" 
                 className='mb-5 w-25' style={{width: "100px"}} />
                 <p>
-                    Lorem ipsum dolor sit amet consectetur, 
-                    adipisicing elit. Rerum ipsam dolore, id itaque eveniet 
-                    eaque dignissimos voluptate earum provident et!
+                Beauty Tips & Tricks: Receive expert beauty tips,
+                 product recommendations, and how-to guides
+                  tailored to your skincare and makeup needs.
                 </p>
             </div>
             <div>
