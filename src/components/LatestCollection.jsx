@@ -17,9 +17,13 @@ const LatestCollection = () => {
       <div className='text-center py-8 text-3xl'>
         <Title text1={"LATEST"} text2={"COLLECTION"} />
         <p className='w-3/4 m-auto text-xs sm:textl'>
-        Lorem ipsum dolor sit amet consectetur
-         adipisicing elit. Sit quod odit at quos saepe, commodi 
-        asperiores illo quibusdam exercitationem esse?
+        Our collection of body lotions is designed to 
+        provide long-lasting hydration and nourishment,
+         leaving your skin feeling soft, smooth, and delicately
+          scented. Formulated with a blend of natural ingredients
+           like shea butter, vitamin E, and essential oils,
+            these lotions are perfect for all skin types and ensure
+             your skin stays moisturized throughout the day.
         </p>
       </div>
       {/* Rending product */}

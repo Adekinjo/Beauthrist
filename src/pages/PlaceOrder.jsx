@@ -72,55 +72,78 @@ const PlaceOrder = () => {
 
   
   const sendOrderEmail = () => {
-    const productDetails = {};
-    cartData.forEach((item, index) => {
-      productDetails[`product${index + 1}_name`] = item.name;
-      productDetails[`product${index + 1}_size`] = item.size;
-      productDetails[`product${index + 1}_quantity`] = item.quantity;
-      productDetails[`product${index + 1}_price`] = item.price;
-      productDetails[`product${index + 1}_total`] = item.total;
-    });
+    // Validate if any of the form fields are empty
+    if (
+      !formData.firstName.trim() ||
+      !formData.lastName.trim() ||
+      !formData.email.trim() ||
+      !formData.street.trim() ||
+      !formData.city.trim() ||
+      !formData.state.trim() ||
+      !formData.country.trim() ||
+      !formData.zipcode.trim() ||
+      !formData.phoneNumber.trim()
+    ) {
+      // Notify the user if any field is empty
+      window.alert("All delivery fields are required to be filled.");
+    } else {
+      // Declare productDetails inside the function, to get the updated cart data
+      const productDetails = {};
   
-    const totalAmount = cartData.reduce((acc, item) => acc + item.total, 0);
+      // If all fields are filled, proceed with processing the order
+      cartData.forEach((item, index) => {
+        productDetails[`product${index + 1}_name`] = item.name;
+        productDetails[`product${index + 1}_size`] = item.size;
+        productDetails[`product${index + 1}_quantity`] = item.quantity;
+        productDetails[`product${index + 1}_price`] = item.price;
+        productDetails[`product${index + 1}_total`] = item.total;
+      });
   
-    const templateParams = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      phoneNumber: formData.phoneNumber,
-      street: formData.street,
-      city: formData.city,
-      state: formData.state,
-      zipcode: formData.zipcode,
-      country: formData.country,
-      paymentMethod: method,
-      totalPrice: totalAmount,
-      currency: currency,
-      reply_to: formData.email,
-      ...productDetails, 
-    };
+      // Calculate the total amount for the cart
+      const totalAmount = cartData.reduce((acc, item) => acc + item.total, 0);
   
-    console.log("Template Params being sent to EmailJS:", templateParams);  
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        street: formData.street,
+        city: formData.city,
+        state: formData.state,
+        zipcode: formData.zipcode,
+        country: formData.country,
+        paymentMethod: method,
+        totalPrice: totalAmount,
+        currency: currency,
+        reply_to: formData.email,
+        ...productDetails, // Spread the product details into the template parameters
+      };
   
-    emailjs
-      .send(
-        'service_uca084n', 
-        'template_iat1469', 
-        templateParams,  
-        'ug_NtN2iawtdSlpL0'  
-      )
-      .then(
-        (response) => {
-          console.log('Order email sent successfully!', response.status, response.text);
-          alert('Order placed successfully!');
-          navigate('/orders');
-        },
-        (err) => {
-          console.error('Error sending email:', err);
-          alert('There was an error sending your order email. Please try again.');
-        }
-      );
+      console.log("Template Params being sent to EmailJS:", templateParams);
+  
+      // Send the order email using EmailJS
+      emailjs
+        .send(
+          'service_uca084n', // Your EmailJS service ID
+          'template_iat1469', // Your EmailJS template ID
+          templateParams,     // The template parameters to send
+          'ug_NtN2iawtdSlpL0' // Your EmailJS user ID
+        )
+        .then(
+          (response) => {
+            console.log('Order email sent successfully!', response.status, response.text);
+            alert('Order placed successfully!');
+            navigate('/'); // Navigate to the home page after successful order
+          },
+          (err) => {
+            console.error('Error sending email:', err);
+            alert('There was an error sending your order email. Please try again.');
+          }
+        );
+    }
   };
+  
   
       
   return (
@@ -138,6 +161,7 @@ const PlaceOrder = () => {
             value={formData.firstName}
             onChange={handleInputChange}
             placeholder="First Name"
+            required
           />
           <input
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
@@ -146,6 +170,7 @@ const PlaceOrder = () => {
             value={formData.lastName}
             onChange={handleInputChange}
             placeholder="Last Name"
+            required
           />
         </div>
         <input
@@ -155,6 +180,7 @@ const PlaceOrder = () => {
           value={formData.email}
           onChange={handleInputChange}
           placeholder="Email Address"
+          required
         />
         <input
           className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
@@ -163,6 +189,7 @@ const PlaceOrder = () => {
           value={formData.street}
           onChange={handleInputChange}
           placeholder="Street"
+          required
         />
         <div className="flex gap-3">
           <input
@@ -172,6 +199,7 @@ const PlaceOrder = () => {
             value={formData.city}
             onChange={handleInputChange}
             placeholder="City"
+            required
           />
           <input
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
@@ -180,6 +208,7 @@ const PlaceOrder = () => {
             value={formData.state}
             onChange={handleInputChange}
             placeholder="State"
+            required
           />
         </div>
         <div className="flex gap-3">
@@ -190,6 +219,7 @@ const PlaceOrder = () => {
             value={formData.zipcode}
             onChange={handleInputChange}
             placeholder="Zipcode"
+            required
           />
           <input
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
@@ -198,6 +228,7 @@ const PlaceOrder = () => {
             value={formData.country}
             onChange={handleInputChange}
             placeholder="Country"
+            required
           />
         </div>
         <input
@@ -207,6 +238,7 @@ const PlaceOrder = () => {
           value={formData.phoneNumber}
           onChange={handleInputChange}
           placeholder="Phone Number"
+          required
         />
       </div>
 

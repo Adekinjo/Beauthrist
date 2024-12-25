@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
  const ShopContextProvider = (props) => {
 
-    const currency = '$';
+    const currency = '\u20A6';
     const delevery_fee = 10;
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
         if (cartData[itemId]) {
             if (cartData[itemId][size]) {
                 cartData[itemId][size] += 1
+                
             }
             else{
                 cartData[itemId][size] =1;
@@ -34,6 +35,7 @@ import { useNavigate } from "react-router-dom";
             cartData[itemId][size] = 1
         }
         setCartItem(cartData);
+        toast.success('Product added to cart list successfully!');
     }
     const getCartCount = () => {
         let totalCount = 0;
